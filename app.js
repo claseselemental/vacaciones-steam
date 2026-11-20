@@ -448,6 +448,22 @@ function pintar() {
 
 const actualizarVistaPrevia = () => { const p = $('[data-preview]'); if (p) p.textContent = mensaje(); };
 
+/* ---------- contador de visitas (GoatCounter) ---------- */
+// Las visitas se cuentan por pestaña (#online, #presencial...) y los clics importantes como eventos.
+const colaConteo = [];
+function contar(datos) {
+  const gc = window.goatcounter;
+  if (gc && gc.count) { try { gc.count(datos); } catch (_) { /* sin conteo */ } } else colaConteo.push(datos);
+}
+window.addEventListener('load', () => { colaConteo.splice(0).forEach(contar); });
+const contarEvento = (nombre, titulo) => contar({ path: nombre, title: titulo || nombre, event: true });
+let ultimaVista = '';
+function contarVista(nombre) {
+  if (nombre === ultimaVista) return;
+  ultimaVista = nombre;
+  contar({ path: `/vacaciones-steam/${nombre === 'inicio' ? '' : '#' + nombre}`, title: `Pestaña: ${nombre}` });
+}
+
 /* ---------- navegación por pestañas ---------- */
 const PESTANAS = ['inicio', 'online', 'presencial', 'nosotros'];
 const ALIAS = { elemental: 'nosotros', '': 'inicio' };
@@ -462,6 +478,7 @@ function mostrar(nombre, subir = true) {
   });
   $$('iframe[data-yt]').forEach((f) => { if (f.closest('[hidden]')) f.remove(); });
   if (subir) window.scrollTo(0, 0);
+  contarVista(nombre);
 }
 const pestanaActual = () => location.hash.replace('#', '').split('?')[0];
 
@@ -488,8 +505,10 @@ function errorReserva(texto, campo) {
 document.addEventListener('click', (e) => {
   const el = e.target.closest('button, a');
   if (!el) return;
+  if (el.matches('a[href*="api.whatsapp.com"]')) contarEvento('clic-consulta-whatsapp', 'Clic: consulta por WhatsApp');
 
   if (el.dataset.video) {
+    contarEvento(`video-${el.dataset.video}`, 'Vio video de curso');
     const marco = document.createElement('div');
     marco.className = 'cover cover-live';
     marco.innerHTML = `<iframe data-yt src="https://www.youtube-nocookie.com/embed/${el.dataset.video}?autoplay=1&rel=0&modestbranding=1" title="Video del curso" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
@@ -509,12 +528,13 @@ document.addEventListener('click', (e) => {
   }
   if (el.dataset.add) {
     cambiar(el.dataset.add, 1);
+    contarEvento(`agregar-${el.dataset.add}`, 'Agregó curso a la reserva');
     const n = totalCupos();
     toast(n === 1 ? '✅ Agregado a tu reserva' : `✅ Agregado · ahora cada curso te sale a ${bs(precioPor(n))}`);
     return;
   }
   if (el.dataset.step) { cambiar(el.dataset.k, Number(el.dataset.step)); return; }
-  if (el.hasAttribute('data-open-cart')) { if (!dialogo.open) dialogo.showModal(); return; }
+  if (el.hasAttribute('data-open-cart')) { contarEvento('abrir-reserva', 'Abrió su reserva'); if (!dialogo.open) dialogo.showModal(); return; }
   if (el.hasAttribute('data-close-cart')) { dialogo.close(); return; }
   if (el.hasAttribute('data-vaciar')) {
     if (window.confirm('¿Deseas eliminar todos los cursos de tu reserva?')) {
@@ -526,6 +546,7 @@ document.addEventListener('click', (e) => {
     $$('.is-bad', dialogo).forEach((x) => x.classList.remove('is-bad'));
     if (!estado.tutor.trim()) return errorReserva('Escribe tu nombre para que sepamos a quién responder.', $('[data-tutor]'));
     if ((estado.telefono || '').replace(/\D/g, '').length < 7) return errorReserva('Escribe tu número de WhatsApp para contactarte.', $('[data-telefono]'));
+    contarEvento('reserva-enviada', 'Envió reserva por WhatsApp');
     window.open(waLink(mensaje()), '_blank', 'noopener');
   }
 });
