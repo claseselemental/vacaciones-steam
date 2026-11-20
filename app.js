@@ -56,7 +56,7 @@ const CURSOS = {
   lego: {
     nombre: 'Robótica con Lego', corto: 'Robótica con Lego',
     nivel: 'Básico', edadMin: 8, dias: LMV, hora: '15:00 – 16:30',
-    color: '#1E88C7', img: 'assets/cursos/lego.webp',
+    color: '#1E88C7', video: 'vRQ1OgIdfGM', img: 'assets/cursos/lego.webp',
     desc: 'Arman y programan un robot LEGO Mindstorms EV3 con sus propias manos: motores, engranajes y sensores que le permiten moverse y reaccionar solo.',
     logro: 'Su robot esquiva obstáculos, sigue una línea y reconoce colores.',
     clases: ['Introducción a LEGO Mindstorms EV3', 'Programación básica y control de motores', 'Estructuras y mecanismos de movimiento', 'Sensores y actuadores', 'Robot evasor de obstáculos', 'Robot seguidor de línea y detector de colores'],
@@ -64,7 +64,7 @@ const CURSOS = {
   mbot: {
     nombre: 'Robótica con mBot', corto: 'Robótica con mBot',
     nivel: 'Básico', edadMin: 10, dias: LMV, hora: '11:00 – 12:30',
-    color: '#2447A8', img: 'assets/cursos/mbot.webp',
+    color: '#2447A8', video: '5QEtL1sIUH4', img: 'assets/cursos/mbot.webp',
     desc: 'Conocen por dentro un robot educativo y lo programan por bloques: controlan sus ruedas, luces y sonidos, y le enseñan a «sentir» lo que tiene alrededor.',
     logro: 'Su robot esquiva obstáculos, sigue una línea y compite en mini sumo.',
     clases: ['Introducción al mBot', 'Programación básica del mBot', 'Actuadores: motores, luces y sonido', 'Introducción a los sensores', 'mBot evasor de obstáculos', 'mBot seguidor de línea y mini sumo'],
