@@ -222,9 +222,9 @@ function panelModalidad(mod) {
 
   <div class="wrap price-strip">
     <p class="kicker">Promo vacaciones</p>
-    <h2>Mientras más cursos, menos pagas</h2>
+    <h2>Mientras más cursos, pagas menos por cada uno</h2>
     <ul class="prices prices-compact">${preciosHTML()}</ul>
-    <p class="fine-left">Vale para un mismo niño o para hermanos y amigos en la misma reserva. Puedes mezclar online y presencial.</p>
+    <p class="fine-left">Vale para un mismo niño o para hermanos y primos que se inscriban en la misma reserva. Puedes mezclar online y presencial.</p>
   </div>
 
   <div class="wrap block block-tight">
