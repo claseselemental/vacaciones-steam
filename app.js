@@ -573,3 +573,15 @@ $$('[data-prices]').forEach((el) => { el.innerHTML = preciosHTML(); });
 $$('[data-wa-consulta]').forEach((el) => { el.href = waLink('¡Hola, Elemental! 👋 Quiero información sobre las Vacaciones Digitales STEAM.'); });
 pintar();
 mostrar(pestanaActual(), false);
+
+/* ---------- contador público de visitas ---------- */
+// Si el contador no responde (o está desactivado en GoatCounter) la franja queda oculta.
+fetch('https://elemental-vacaciones.goatcounter.com/counter/TOTAL.json')
+  .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
+  .then((d) => {
+    const n = Number(String(d.count || '').replace(/\D/g, ''));
+    if (!n) return;
+    $('[data-visitas-num]').textContent = n.toLocaleString('es-BO');
+    $('[data-visitas]').hidden = false;
+  })
+  .catch(() => { /* sin contador visible */ });
