@@ -80,7 +80,7 @@ const MODALIDADES = {
     cursos: ['minecraft', 'mcreator', 'roblox', 'python', 'unity'],
     datos: [
       ['Inicio', 'Lunes 7 de diciembre'],
-      ['Duración', '2 semanas · 6 clases'],
+      ['Duración', '2 semanas · 3 clases por semana'],
       ['Edades', '8 a 17 años, según el curso'],
       ['Modalidad', 'En vivo por Zoom'],
     ],
@@ -94,7 +94,7 @@ const MODALIDADES = {
     cursos: ['minecraft', 'mcreator', 'roblox', 'lego', 'mbot', 'python'],
     datos: [
       ['Inicio', 'Lunes 7 de diciembre'],
-      ['Duración', '2 semanas · 6 clases'],
+      ['Duración', '2 semanas · 3 clases por semana'],
       ['Edades', '8 a 17 años, según el curso'],
       ['Dónde', 'Av. 6 de Agosto #2570, piso 2'],
     ],
